@@ -2,13 +2,12 @@ import matplotlib.pyplot as plt
 from os import listdir, system, remove, mkdir
 from os.path import isfile, join, exists
 
-system("g++ -std=c++11 bat.cpp -o bat")
-system(".\\bat.exe")
-
-graphingFiles = [join("./graphs/", f) for f in listdir("./graphs/") if isfile("./graphs/"+f) and "GraphAux" in f]
-
 if(not exists("./graphs/")):
     mkdir("./graphs/")
+
+system("cd cpp_code && g++ -std=c++11 main.cpp bat/bat.cpp random/random_engine.cpp -o main && .\\main.exe")
+
+graphingFiles = [join("./graphs/", f) for f in listdir("./graphs/") if isfile("./graphs/"+f) and "GraphAux" in f]
 
 for filename in graphingFiles:
     xdata = []
