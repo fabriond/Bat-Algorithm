@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 from os import listdir, system, remove, mkdir
 from os.path import isfile, join, exists
+import numpy as np
 
 if(not exists("./graphs/")):
     mkdir("./graphs/")
@@ -19,18 +20,19 @@ for filename in graphingFiles:
             ydata.append(y)
     
     plt.figure(figsize=[12.8, 4.8])
-    
+
     subplot1 = plt.subplot(121)
     subplot1.set_xlim(-100, 100)
     subplot1.set_ylim(-100, 100)
     subplot1.title.set_text("Search Space Sized")
     subplot1.scatter(xdata, ydata)
+    subplot1.grid(which='both', linestyle='-.')
 
     subplot2 = plt.subplot(122)
     subplot2.title.set_text("Zoomed in on Bats")
     subplot2.scatter(xdata, ydata)
+    subplot2.grid(which='both', linestyle='-.')
 
     plt.savefig(filename.replace("Aux", "").replace(".txt", ".png"))
     plt.close()
     remove(filename)
-    

@@ -1,4 +1,5 @@
 #include "bat_algorithm.cpp"
+#include <cmath>
 
 int main(){
     //Compile with "g++ -std=c++11 main.cpp bat/bat.cpp random/random_engine.cpp -o main"

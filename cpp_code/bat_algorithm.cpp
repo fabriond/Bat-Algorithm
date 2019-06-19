@@ -11,7 +11,7 @@ void printSolution(std::string description, Bat bat){
     file.close();
 }
 
-void graphBat(int iteration, std::vector<Bat> bats){
+void graphBats(int iteration, std::vector<Bat> bats){
     std::ofstream file("../graphs/GraphAux"+std::to_string(iteration)+".txt");
 
     for(Bat bat : bats){
@@ -52,9 +52,15 @@ void batAlgorithm(int dimensions, int batCount, int maxIterations, std::vector<d
     printSolution("Initial", best);
     
     int t;
-    for(t = 0; best.getFitness() < -0.1 || best.getFitness() > 0.1; ++t){
-        if(!(t%100)){
-            graphBat(t, bats);
+    for(t = 0; best.getFitness() < -1.0 || best.getFitness() > 1.0; ++t){
+        if(t<10){
+            graphBats(t, bats);
+        }
+        else if(t < 100 && !(t%10)){
+            graphBats(t, bats);
+        }
+        else if(!(t%100)){
+            graphBats(t, bats);
         }
 
         double avgLoudness = 0;
@@ -87,7 +93,7 @@ void batAlgorithm(int dimensions, int batCount, int maxIterations, std::vector<d
     printSolution("Final", best);
 
     if(t%100){
-        graphBat(t, bats);
+        graphBats(t, bats);
     }
 
     file << "===========================================" << std::endl;
