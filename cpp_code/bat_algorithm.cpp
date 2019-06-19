@@ -52,7 +52,7 @@ void batAlgorithm(int dimensions, int batCount, int maxIterations, std::vector<d
     printSolution("Initial", best);
     
     int t;
-    for(t = 0; best.getFitness() < -1.0 || best.getFitness() > 1.0; ++t){
+    for(t = 0;t < maxIterations && (best.getFitness() < -1.0 || best.getFitness() > 1.0); ++t){
         if(t<10){
             graphBats(t, bats);
         }

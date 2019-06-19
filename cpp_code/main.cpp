@@ -5,7 +5,7 @@ int main(){
     //Compile with "g++ -std=c++11 main.cpp bat/bat.cpp random/random_engine.cpp -o main"
     int dimensions = 2;
     int batCount = 20;
-    int maxIterations = 1000;
+    int maxIterations = 10000;
     std::vector<double> lowerBoundaries(dimensions, -100);
     std::vector<double> upperBoundaries(dimensions, 100);
     
