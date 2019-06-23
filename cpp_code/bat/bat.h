@@ -36,9 +36,7 @@ class Bat {
     
     
 public:
-    Bat(int dimCount, std::vector<double> lb, std::vector<double> ub, Function fun);
-
-    Bat(std::vector<double> pos, double fitness);
+    Bat(std::vector<double> initPos, std::vector<double> lb, std::vector<double> ub, Function fun);
 
     void randomWalk();
 

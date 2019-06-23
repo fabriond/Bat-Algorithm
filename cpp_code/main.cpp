@@ -11,8 +11,8 @@ int main(){
     
     Function fitness(
         [](std::vector<double> pos) -> double {
-            return (1-pos[0]*pos[0])*(1-pos[0]*pos[0]) + 100*(pos[1]-pos[0]*pos[0])*(pos[1]-pos[0]*pos[0]);
-            //return pos[0]*pos[0] + pos[1]*pos[1] + 25*(sin(pos[0])*sin(pos[0]) + sin(pos[1])*sin(pos[1]));
+            //return (1-pos[0]*pos[0])*(1-pos[0]*pos[0]) + 100*(pos[1]-pos[0]*pos[0])*(pos[1]-pos[0]*pos[0]);
+            return pos[0]*pos[0] + pos[1]*pos[1] + 25*(sin(pos[0])*sin(pos[0]) + sin(pos[1])*sin(pos[1]));
         }
     );
     

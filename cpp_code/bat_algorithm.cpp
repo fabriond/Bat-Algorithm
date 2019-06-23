@@ -11,8 +11,8 @@ void printSolution(std::string description, Bat bat){
     file.close();
 }
 
-void graphBats(int iteration, std::vector<Bat> bats){
-    std::ofstream file("../graphs/GraphAux"+std::to_string(iteration)+".txt");
+void plotBats(int iteration, std::vector<Bat> bats){
+    std::ofstream file("../plots/PlotAux of iteration "+std::to_string(iteration)+".txt");
 
     for(Bat bat : bats){
         std::vector<double> position(bat.getPosition());
@@ -34,8 +34,16 @@ void batAlgorithm(int dimensions, int batCount, int maxIterations, std::vector<d
     file << "Initializing bats" << std::endl;
     
     int bestId = 0;
-    for(int i = 0; i < batCount; ++i){
-        Bat newBat = Bat(dimensions, lb, ub, fitness);
+
+    for(int i = 0; i < batCount; ++i){        
+        
+        std::vector<double> pos(dimensions);
+
+        for(int j = 0; j < dimensions; ++j){
+            pos[j] = uniformRandom(lb[j], ub[j]);
+        }
+        
+        Bat newBat = Bat(pos, lb, ub, fitness);
         bats.push_back(newBat);
 
         printSolution("Bat "+std::to_string(i)+"'s initial", bats[i]);
@@ -54,13 +62,13 @@ void batAlgorithm(int dimensions, int batCount, int maxIterations, std::vector<d
     int t;
     for(t = 0;t < maxIterations && (best.getFitness() < -1.0 || best.getFitness() > 1.0); ++t){
         if(t<10){
-            graphBats(t, bats);
+            plotBats(t, bats);
         }
         else if(t < 100 && !(t%10)){
-            graphBats(t, bats);
+            plotBats(t, bats);
         }
         else if(!(t%100)){
-            graphBats(t, bats);
+            plotBats(t, bats);
         }
 
         double avgLoudness = 0;
@@ -72,7 +80,6 @@ void batAlgorithm(int dimensions, int batCount, int maxIterations, std::vector<d
         for(int i = 0; i < bats.size(); ++i){
             bats[i].walk(best.getPosition()); //Equations (2) to (4)
 
-            //using average pulse rate instead of random seems to give better results
             if(uniformRandom(MIN_PULSE, MAX_PULSE) > bats[i].getPulseRate()){
                 bats[i].aproxBest(best.getPosition(), avgLoudness); //Equation (5)
             }
@@ -93,7 +100,7 @@ void batAlgorithm(int dimensions, int batCount, int maxIterations, std::vector<d
     printSolution("Final", best);
 
     if(t%100){
-        graphBats(t, bats);
+        plotBats(t, bats);
     }
 
     file << "===========================================" << std::endl;

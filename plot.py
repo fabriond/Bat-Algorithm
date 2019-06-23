@@ -3,12 +3,12 @@ from os import listdir, system, remove, mkdir
 from os.path import isfile, join, exists
 import numpy as np
 
-if(not exists("./graphs/")):
-    mkdir("./graphs/")
+if(not exists("./plots/")):
+    mkdir("./plots/")
 
 system("cd cpp_code && g++ -std=c++11 main.cpp bat/bat.cpp random/random_engine.cpp -o main && .\\main.exe")
 
-graphingFiles = [join("./graphs/", f) for f in listdir("./graphs/") if isfile("./graphs/"+f) and "GraphAux" in f]
+graphingFiles = [join("./plots/", f) for f in listdir("./plots/") if isfile("./plots/"+f) and "PlotAux" in f]
 
 for filename in graphingFiles:
     xdata = []
