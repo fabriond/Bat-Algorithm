@@ -4,11 +4,18 @@
 #include <cmath>
 #include "../random/random_engine.h"
 
-
 static double simpleBounds(double value, double lower, double upper){
     if(value < lower) value = lower;
     if(value > upper) value = upper;
     return value;
+}
+
+Bat::Bat(std::vector<double> initPos, double initFitness, Function fun):
+    position(initPos), 
+    fitness(initFitness),
+    fitnessFunction(fun)
+{
+
 }
 
 Bat::Bat(std::vector<double> initPos, std::vector<double> lb, std::vector<double> ub, Function fun):

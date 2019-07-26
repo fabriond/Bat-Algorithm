@@ -5,10 +5,10 @@
 #include <vector>
 
 #define MIN_FREQ 0.0
-#define MAX_FREQ 1.0
+#define MAX_FREQ 0.5
 
 #define MIN_LOUDNESS 0.0
-#define MAX_LOUDNESS 1.5
+#define MAX_LOUDNESS 10.0
 
 #define MIN_PULSE 0.0
 #define MAX_PULSE 1.0
@@ -36,6 +36,8 @@ class Bat {
     
     
 public:
+    Bat(std::vector<double> initPos, double initFitness, Function fun);
+
     Bat(std::vector<double> initPos, std::vector<double> lb, std::vector<double> ub, Function fun);
 
     void randomWalk();
