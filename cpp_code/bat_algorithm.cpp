@@ -1,5 +1,6 @@
 #include <string>
 #include <fstream>
+#include <iostream>
 #include <direct.h>
 #include "./bat/bat.h"
 #include "./random/random_engine.h"
@@ -12,7 +13,7 @@ void printSolution(std::string description, Bat bat){
 }
 
 void plotBats(int iteration, std::vector<Bat> bats){
-    std::ofstream file("../plots/PlotAux of iteration "+std::to_string(iteration)+".txt");
+    /*std::ofstream file("../plots/PlotAux of iteration "+std::to_string(iteration)+".txt");
 
     for(Bat bat : bats){
         std::vector<double> position(bat.getPosition());
@@ -23,7 +24,7 @@ void plotBats(int iteration, std::vector<Bat> bats){
         }
         file << std::endl;
     }
-    file.close();
+    file.close();*/
 }
 
 void batAlgorithm(int dimensions, int batCount, int maxIterations, std::vector<double> lb, std::vector<double> ub, Function fitness){
@@ -60,7 +61,7 @@ void batAlgorithm(int dimensions, int batCount, int maxIterations, std::vector<d
     printSolution("Initial", best);
     
     int t;
-    for(t = 0;t < maxIterations && (best.getFitness() < -1.0 || best.getFitness() > 1.0); ++t){
+    for(t = 0;t < maxIterations && (best.getFitness() < -0.01 || best.getFitness() > 0.01); ++t){
         if(t<10){
             plotBats(t, bats);
         }
@@ -76,7 +77,7 @@ void batAlgorithm(int dimensions, int batCount, int maxIterations, std::vector<d
             avgLoudness += bats[i].getLoudness();
         }
         avgLoudness /= bats.size();
-
+        std::cout << avgLoudness << "\r";
         for(int i = 0; i < bats.size(); ++i){
             bats[i].walk(best.getPosition()); //Equations (2) to (4)
 
@@ -91,7 +92,9 @@ void batAlgorithm(int dimensions, int batCount, int maxIterations, std::vector<d
             }
             
             if(bats[i].getUpdatedFitness() <= best.getFitness()){ //Updating best fitness
-                best = bats[i];
+                Bat aux(bats[i].getUpdatedPosition(), bats[i].getUpdatedFitness(), fitness);
+                best = aux;
+                //best = bats[i];
                 printSolution("Updated", best);
             }
         }

@@ -45,7 +45,7 @@ void Bat::walk(std::vector<double> globalBestPos){
 
     frequency = MIN_FREQ + (MAX_FREQ - MIN_FREQ)*uniformRandom(0.0, 1.0);
     for(int j = 0; j < auxPosition.size(); ++j){
-        speed[j] = speed[j] + (position[j] - globalBestPos[j])*frequency;
+        speed[j] = (position[j] - globalBestPos[j])*frequency;
         auxPosition[j] = position[j] + speed[j];
         auxPosition[j] = simpleBounds(auxPosition[j], lowerBounds[j], upperBounds[j]);
     }
