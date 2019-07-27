@@ -142,3 +142,28 @@ Matrix dot(const Matrix& m1, const Matrix& m2){
     
     return output;
 }
+
+Matrix::Matrix(int numRows, int numCols, std::vector<double> vals): 
+    numRows(numRows), 
+    numCols(numCols)
+{
+    for(int i = 0; i < numRows; ++i){
+        std::vector<double> colValues;
+        for(int j = 0; j < numCols; ++j){
+            colValues.push_back(vals.at(j + i*numCols));
+        }
+        values.push_back(colValues);
+    }
+}
+
+std::vector<double> Matrix::toVector(){
+    std::vector<double> result;
+
+    for(int i = 0; i < numRows; ++i){
+        for(int j = 0; j < numCols; ++j){
+            result.push_back(getValue(i, j));
+        }
+    }
+
+    return result;
+}
