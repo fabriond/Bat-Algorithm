@@ -17,8 +17,6 @@ int main(){
     inputs.push_back(0.0);
     inputs.push_back(1.0);
 
-    Network n(topology);
-    n.setInputs(inputs);
     vector<double> weights;
     weights.push_back(0.5); weights.push_back(0.2);
     weights.push_back(0.5); weights.push_back(0.2);
@@ -27,7 +25,8 @@ int main(){
     weights.push_back(0.5); weights.push_back(0.2); weights.push_back(0.5);
     weights.push_back(0.2); weights.push_back(0.5); weights.push_back(0.2);
 
-    n.setWeights(weights);
+    Network n(topology, weights);
+    n.setInputs(inputs);
     /*
     Matrix m(2, 2, true);
     cout << m;

@@ -8,6 +8,7 @@
 class Network{
 public:
     Network(std::vector<int> topology);
+    Network(std::vector<int> topology, std::vector<double> weights);
     void setInputs(std::vector<double> inputs);
     void setWeights(std::vector<double> weights);
     friend std::ostream& operator<<(std::ostream& os, const Network& net);

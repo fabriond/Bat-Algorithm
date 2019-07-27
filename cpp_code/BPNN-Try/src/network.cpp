@@ -15,6 +15,26 @@ Network::Network(std::vector<int> topology):
     }
 }
 
+Network::Network(std::vector<int> topology, std::vector<double> weights): 
+    topology(topology)
+{
+    for(int i = 0; i < topology.size(); ++i){
+        Layer l(topology.at(i));
+        layers.push_back(l);
+    }
+
+    for(int i = 0, current = 0; i < topology.size()-1; ++i){
+        auto start = weights.begin() + current;
+        auto end = start + topology.at(i)*topology.at(i+1);
+
+        std::vector<double> weightVector(start, end);
+        Matrix m(topology.at(i), topology.at(i+1), weightVector);
+
+        weightMatrices.push_back(m);
+        current += topology.at(i)*topology.at(i+1);
+    }
+}
+
 void Network::setInputs(std::vector<double> inputs){
     for(int i = 0; i < inputs.size(); ++i){
         layers.at(0).setVal(i, inputs.at(i));
@@ -25,8 +45,10 @@ void Network::setWeights(std::vector<double> weights){
     for(int i = 0, current = 0; i < topology.size()-1; ++i){
         auto start = weights.begin() + current;
         auto end = start + topology.at(i)*topology.at(i+1);
+
         std::vector<double> weightVector(start, end);
         Matrix m(topology.at(i), topology.at(i+1), weightVector);
+        
         weightMatrices.at(i) = m;
         current += topology.at(i)*topology.at(i+1);
     }
