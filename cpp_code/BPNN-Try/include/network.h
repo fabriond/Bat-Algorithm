@@ -9,8 +9,9 @@ class Network{
 public:
     Network(std::vector<int> topology);
     void setInputs(std::vector<double> inputs);
+    void setWeights(std::vector<double> weights);
     friend std::ostream& operator<<(std::ostream& os, const Network& net);
-
+    
 private:
     std::vector<int> topology;
     std::vector<Layer> layers;

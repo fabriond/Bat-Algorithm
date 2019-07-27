@@ -3,12 +3,10 @@
 #include <string>
 #include "../include/network.h"
 
-//
-
 using namespace std;
 
 int main(){
-    //Compile with: g++ -std=c++11 bpnn.cpp  matrix.cpp layer.cpp network.cpp random_engine.cpp -o main
+    //Compile with: g++ -std=c++11 src/main.cpp src/matrix.cpp src/layer.cpp src/network.cpp src/random_engine.cpp -o main
     vector<int> topology;
     topology.push_back(3);
     topology.push_back(2);
@@ -21,6 +19,15 @@ int main(){
 
     Network n(topology);
     n.setInputs(inputs);
+    vector<double> weights;
+    weights.push_back(0.5); weights.push_back(0.2);
+    weights.push_back(0.5); weights.push_back(0.2);
+    weights.push_back(0.5); weights.push_back(0.2);
+
+    weights.push_back(0.5); weights.push_back(0.2); weights.push_back(0.5);
+    weights.push_back(0.2); weights.push_back(0.5); weights.push_back(0.2);
+
+    n.setWeights(weights);
     /*
     Matrix m(2, 2, true);
     cout << m;

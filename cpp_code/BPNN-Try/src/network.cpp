@@ -21,11 +21,27 @@ void Network::setInputs(std::vector<double> inputs){
     }
 }
 
+void Network::setWeights(std::vector<double> weights){
+    for(int i = 0, current = 0; i < topology.size()-1; ++i){
+        auto start = weights.begin() + current;
+        auto end = start + topology.at(i)*topology.at(i+1);
+        std::vector<double> weightVector(start, end);
+        Matrix m(topology.at(i), topology.at(i+1), weightVector);
+        weightMatrices.at(i) = m;
+        current += topology.at(i)*topology.at(i+1);
+    }
+}
+
 std::ostream& operator<<(std::ostream& os, const Network& net){
     for(int i = 0; i < net.layers.size(); ++i){
         os << "Layer[" << i << "]: " << std::endl;
         if(i == 0) os << net.layers.at(i).matrixifyVals();
         else os << net.layers.at(i).matrixifyActivatedVals();
+    }
+
+    for(int i = 0; i < net.weightMatrices.size(); ++i){
+        os << "Layer[" << i << "] Weights: " << std::endl;
+        os << net.weightMatrices.at(i);
     }
     
     return os;
