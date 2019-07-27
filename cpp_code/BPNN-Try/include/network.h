@@ -11,6 +11,9 @@ public:
     Network(std::vector<int> topology, std::vector<double> weights);
     void setInputs(std::vector<double> inputs);
     void setWeights(std::vector<double> weights);
+    void feedForward();
+    Matrix getOutputs();
+    void setNeuronVal(int idLayer, int idNeuron, double val){ layers.at(idLayer).setVal(idNeuron, val); }
     friend std::ostream& operator<<(std::ostream& os, const Network& net);
     
 private:

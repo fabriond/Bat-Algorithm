@@ -14,7 +14,7 @@ static double derivative_sigmoid(double x) {
 class Neuron{
 public:
     Neuron(double val): val(val){ activate(); derive(); }
-    void setVal(double val){ this->val = val; activate(); derive(); }
+    void setVal(double v){ val = v; activate(); derive(); }
     double getVal() const { return val; }
     double getActivatedVal() const { return activatedVal; }
     double getDerivedVal() const { return derivedVal; }
