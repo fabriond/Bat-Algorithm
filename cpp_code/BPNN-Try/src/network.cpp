@@ -46,7 +46,19 @@ Network::Network(std::vector<int> topology, std::vector<double> weights):
     }
 }
 
-void Network::feedForward(){
+Matrix Network::feedForward(std::vector<double> inputs){
+    //Setting the network's inputs...
+    int inputLayerSize = layers.at(0).matrixifyVals().getNumCols();
+    if(inputs.size() > inputLayerSize){
+        std::stringstream ss;
+        ss << "Too many inputs for network, "<< inputs.size() <<" inputs found, "<< inputLayerSize <<" expected";
+        throw std::logic_error(ss.str());
+    }
+    for(int i = 0; i < inputs.size(); ++i){
+        layers.at(0).setVal(i, inputs.at(i));
+    }
+
+    //Calculating the network's result...
     for(int i = 0; i < layers.size()-1; ++i){
         Matrix a = layers.at(i).matrixifyVals();
         if(i != 0){
@@ -61,24 +73,9 @@ void Network::feedForward(){
             setNeuronVal(i+1, j, c.getValue(0, j));
         }
     }
-}
 
-Matrix Network::getOutputs(){
+    //Returning the results...
     return layers.back().matrixifyActivatedVals();
-}
-
-void Network::setInputs(std::vector<double> inputs){
-    int inputLayerSize = layers.at(0).matrixifyVals().getNumCols();
-    
-    if(inputs.size() > inputLayerSize){
-        std::stringstream ss;
-        ss << "Too many inputs for network, "<< inputs.size() <<" inputs found, "<< inputLayerSize <<" expected";
-        throw std::logic_error(ss.str());
-    }
-
-    for(int i = 0; i < inputs.size(); ++i){
-        layers.at(0).setVal(i, inputs.at(i));
-    }
 }
 
 void Network::setWeights(std::vector<double> weights){

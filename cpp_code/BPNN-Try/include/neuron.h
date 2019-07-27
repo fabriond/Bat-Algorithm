@@ -4,11 +4,11 @@
 #include <math.h>
 
 static double sigmoid(double x) {
-	return (1.0 / (1.0 + std::exp(-x)));
+	return (x / (1.0 + abs(x)));
 }
 
 static double derivative_sigmoid(double x) {
-	return (x*(1.0-x));
+	return (1.0 / ( (1.0+abs(x)) * (1.0+abs(x)) ));
 }
 
 class Neuron{

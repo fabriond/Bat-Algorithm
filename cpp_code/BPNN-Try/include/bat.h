@@ -5,10 +5,10 @@
 #include <vector>
 
 #define MIN_FREQ 0.0
-#define MAX_FREQ 0.5
+#define MAX_FREQ 1.0
 
 #define MIN_LOUDNESS 0.0
-#define MAX_LOUDNESS 10.0
+#define MAX_LOUDNESS 1.5
 
 #define MIN_PULSE 0.0
 #define MAX_PULSE 1.0
@@ -48,29 +48,34 @@ public:
 
     void acceptNewSolutions(double currentIteration);
     
+    friend bool operator<(const Bat& b1, const Bat& b2){ return b1.getFitness() < b2.getFitness(); }
+    friend bool operator>(const Bat& b1, const Bat& b2){ return b1.getFitness() > b2.getFitness(); }
+    friend bool operator<=(const Bat& b1, const Bat& b2){ return !(b1 > b2); }
+    friend bool operator>=(const Bat& b1, const Bat& b2){ return !(b1 < b2); }
+    
     friend std::ostream& operator<<(std::ostream& os, const Bat& bat);
 
-    double getUpdatedFitness(){
+    double getUpdatedFitness() const {
         return fitnessFunction.operator()(auxPosition);
     }
 
-    double getFitness(){
+    double getFitness() const {
         return fitnessFunction.operator()(position);
     }
 
-    double getPulseRate(){
+    double getPulseRate() const {
         return pulseRate;
     }
 
-    double getLoudness(){
+    double getLoudness() const {
         return loudness;
     }
 
-    std::vector<double> getPosition(){
+    std::vector<double> getPosition() const {
         return position;
     }
 
-    std::vector<double> getUpdatedPosition(){
+    std::vector<double> getUpdatedPosition() const {
         return auxPosition;
     }
 };
