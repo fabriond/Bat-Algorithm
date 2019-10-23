@@ -42,10 +42,9 @@ Matrix Matrix::forEach(std::function<double(double)> function){
 }
 
 std::ostream& operator<<(std::ostream& os, const Matrix& matrix){
-    os.precision(6);
     for(int i = 0; i < matrix.numRows; ++i){
         for(int j = 0; j < matrix.numCols; ++j){
-            os << std::fixed << matrix.getValue(i, j) << "\t";
+            os << matrix.getValue(i, j) << "\t\t";
         }
         os << std::endl;
     }
@@ -64,10 +63,6 @@ Matrix operator+(const Matrix& m1, const Matrix& m2){
     
     Matrix sum(m1.numRows, m1.numCols);
     
-    if(m1.numCols != m2.numCols || m1.numRows != m2.numRows){
-        throw std::runtime_error("Error in matrix addition, sizes don't match");
-    }
-
     for(int i = 0; i < m1.numRows; ++i){
         for(int j = 0; j < m1.numCols; ++j){
             double v = m1.getValue(i, j) + m2.getValue(i, j);
@@ -89,10 +84,6 @@ Matrix operator-(const Matrix& m1, const Matrix& m2){
     
     Matrix diff(m1.numRows, m1.numCols);
     
-    if(m1.numCols != m2.numCols || m1.numRows != m2.numRows){
-        throw std::runtime_error("Error in matrix subtraction, sizes don't match");
-    }
-
     for(int i = 0; i < m1.numRows; ++i){
         for(int j = 0; j < m1.numCols; ++j){
             double v = m1.getValue(i, j) - m2.getValue(i, j);
@@ -114,10 +105,6 @@ Matrix operator*(const Matrix& m1, const Matrix& m2){
     
     Matrix mult(m1.numRows, m1.numCols);
     
-    if(m1.numCols != m2.numCols || m1.numRows != m2.numRows){
-        throw std::runtime_error("Error in matrix multiplication, sizes don't match");
-    }
-
     for(int i = 0; i < m1.numRows; ++i){
         for(int j = 0; j < m1.numCols; ++j){
             double v = m1.getValue(i, j) * m2.getValue(i, j);
@@ -143,10 +130,6 @@ Matrix dot(const Matrix& m1, const Matrix& m2){
     
     Matrix output(m1.numRows, m2.numCols);
     
-    if(m1.numCols != m2.numRows){
-        throw std::runtime_error("Error in matrix dot multiplication, sizes don't match");
-    }
-
     for(int row = 0; row < m1.numRows; ++row) {
         for(int col = 0; col < m2.numCols; ++col) {
             double v = 0.0;
@@ -158,29 +141,4 @@ Matrix dot(const Matrix& m1, const Matrix& m2){
     }
     
     return output;
-}
-
-Matrix::Matrix(int numRows, int numCols, std::vector<double> vals): 
-    numRows(numRows), 
-    numCols(numCols)
-{
-    for(int i = 0; i < numRows; ++i){
-        std::vector<double> colValues;
-        for(int j = 0; j < numCols; ++j){
-            colValues.push_back(vals.at(j + i*numCols));
-        }
-        values.push_back(colValues);
-    }
-}
-
-std::vector<double> Matrix::toVector(){
-    std::vector<double> result;
-
-    for(int i = 0; i < numRows; ++i){
-        for(int j = 0; j < numCols; ++j){
-            result.push_back(getValue(i, j));
-        }
-    }
-
-    return result;
 }

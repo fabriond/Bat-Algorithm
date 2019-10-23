@@ -8,12 +8,9 @@
 class Network{
 public:
     Network(std::vector<int> topology);
-    Network(std::vector<int> topology, std::vector<double> weights);
-    void setWeights(std::vector<double> weights);
-    Matrix feedForward(std::vector<double> inputs);
-    void setNeuronVal(int idLayer, int idNeuron, double val){ layers.at(idLayer).setVal(idNeuron, val); }
+    void setInputs(std::vector<double> inputs);
     friend std::ostream& operator<<(std::ostream& os, const Network& net);
-    
+
 private:
     std::vector<int> topology;
     std::vector<Layer> layers;

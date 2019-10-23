@@ -7,10 +7,8 @@
 class Matrix{
 public:
     Matrix(int numRows, int numCols, bool isRandom = false);
-    Matrix(int numRows, int numCols, std::vector<double> vals);
     Matrix transpose();
     Matrix forEach(std::function<double(double)> function);
-    std::vector<double> toVector();
     void setValue(int r, int c, double v){values.at(r).at(c) = v;}
     double getValue(int r, int c) const {return values.at(r).at(c);}
     int getNumRows(){return numRows;}
