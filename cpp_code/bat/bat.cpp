@@ -4,18 +4,11 @@
 #include <cmath>
 #include "../random/random_engine.h"
 
+
 static double simpleBounds(double value, double lower, double upper){
     if(value < lower) value = lower;
     if(value > upper) value = upper;
     return value;
-}
-
-Bat::Bat(std::vector<double> initPos, double initFitness, Function fun):
-    position(initPos), 
-    fitness(initFitness),
-    fitnessFunction(fun)
-{
-
 }
 
 Bat::Bat(std::vector<double> initPos, std::vector<double> lb, std::vector<double> ub, Function fun):
@@ -45,7 +38,7 @@ void Bat::walk(std::vector<double> globalBestPos){
 
     frequency = MIN_FREQ + (MAX_FREQ - MIN_FREQ)*uniformRandom(0.0, 1.0);
     for(int j = 0; j < auxPosition.size(); ++j){
-        speed[j] = (position[j] - globalBestPos[j])*frequency;
+        speed[j] = speed[j] + (position[j] - globalBestPos[j])*frequency;
         auxPosition[j] = position[j] + speed[j];
         auxPosition[j] = simpleBounds(auxPosition[j], lowerBounds[j], upperBounds[j]);
     }
